@@ -14,6 +14,7 @@ A desktop todo app I built to manage tasks. You can add tasks, mark them as comp
 - [Tauri](https://tauri.app/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [TailwindCSS](https://tailwindcss.com/)
+- [React](https://react.dev/)
 
 ## Getting started
 
