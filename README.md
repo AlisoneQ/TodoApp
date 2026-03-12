@@ -1,29 +1,23 @@
 # TodoApp
 
-A simple **Todo** desktop app that lets you add, complete, and remove tasks — keeping your day organised in one clean place.
+A desktop todo app I built to manage tasks. You can add tasks, mark them as completed, and remove them.
 
-## What it does
+## Features
 
-- **Add tasks** — type a task and hit *Add Task*
-- **Complete tasks** — check the checkbox to mark a task as done
-- **Remove tasks** — click the delete button to remove a task
+- Add tasks
+- Mark tasks as completed
+- Remove tasks
 
 ## Built with
 
-- ⚡ **[Vite](https://vite.dev/)** — lightning-fast build tool and dev server
-- 🦀 **[Tauri](https://tauri.app/)** — wraps the app into a lightweight native desktop application
-- 🔷 **[TypeScript](https://www.typescriptlang.org/)** — type-safe JavaScript for reliable, maintainable code
-- 🎨 **[TailwindCSS](https://tailwindcss.com/)** — utility-first CSS for rapid, consistent styling
+- [Vite](https://vite.dev/)
+- [Tauri](https://tauri.app/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS](https://tailwindcss.com/)
 
 ## Getting started
 
 ```bash
-# install dependencies
 npm install
-
-# run in development (opens the desktop window)
 npm run tauri dev
-
-# build for production
-npm run tauri build
 ```
