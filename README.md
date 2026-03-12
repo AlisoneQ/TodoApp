@@ -1,69 +1,112 @@
-# React + TypeScript + Vite
+# TodoApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight, cross-platform desktop **Todo application** built with React, TypeScript, and [Tauri](https://tauri.app/). Manage your daily tasks in a clean, modern dark-themed interface.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Add tasks** – Type a description and press *Add Task* to create a new item.
+- **Complete tasks** – Check a task's checkbox to mark it done (strikethrough styling applied).
+- **Delete tasks** – Remove individual tasks with the dedicated delete button.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Layer | Technology | Version |
+|-------|-----------|---------|
+| UI Framework | [React](https://react.dev/) | 19 |
+| Language | [TypeScript](https://www.typescriptlang.org/) | 5 |
+| Build Tool | [Vite](https://vite.dev/) | 7 |
+| Styling | [TailwindCSS](https://tailwindcss.com/) | 4 |
+| Desktop Runtime | [Tauri](https://tauri.app/) (Rust) | 2 |
+| Linter | [ESLint](https://eslint.org/) | 9 |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Prerequisites
+
+Before you begin, make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (LTS recommended) with **npm**
+- [Rust toolchain](https://www.rust-lang.org/tools/install) (required by Tauri)
+
+---
+
+## Getting Started
+
+### 1. Install dependencies
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Run in development mode
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run tauri dev
 ```
+
+This starts the Vite dev server with Hot Module Replacement (HMR) and opens a native desktop window powered by Tauri.
+
+> **Frontend only** (no desktop window): `npm run dev` – available at `http://localhost:5173`
+
+---
+
+## Building for Production
+
+```bash
+npm run tauri build
+```
+
+Tauri compiles the frontend and Rust backend into a single native installer / executable for your platform (Windows, macOS, or Linux). The output is placed in `src-tauri/target/release/bundle/`.
+
+To build the frontend bundle only (without the desktop wrapper):
+
+```bash
+npm run build
+```
+
+---
+
+## Linting
+
+```bash
+npm run lint
+```
+
+Runs ESLint across all TypeScript / TSX source files.
+
+---
+
+## Project Structure
+
+```
+TodoApp/
+├── src/                     # React frontend
+│   ├── App.tsx              # Root component – task state & handlers
+│   ├── main.tsx             # React DOM entry point
+│   ├── components/
+│   │   ├── AddTask.tsx      # Form for adding new tasks
+│   │   ├── Task.tsx         # Individual task row (checkbox + delete)
+│   │   └── TaskList.tsx     # Renders the list of Task components
+│   ├── types/
+│   │   └── Task.ts          # Task interface definition
+│   └── styles/
+│       └── App.css          # Global styles & Tailwind import
+├── src-tauri/               # Tauri / Rust backend
+│   ├── src/
+│   │   ├── lib.rs           # Tauri app builder
+│   │   └── main.rs          # Entry point
+│   └── tauri.conf.json      # Tauri window & build configuration
+├── index.html               # HTML entry point
+├── vite.config.ts           # Vite configuration
+└── package.json             # npm scripts & dependencies
+```
+
+---
+
+## License
+
+This project is open source. Feel free to use, modify, and distribute it.
