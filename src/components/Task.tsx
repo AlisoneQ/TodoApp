@@ -4,29 +4,66 @@ interface TaskProps {
   task: TaskType;
   onToggle?: (id: number) => void;
   onDelete?: (id: number) => void;
+  deletePhase?: "flash" | "fade";
+  isFirst?: boolean;
+  isLast?: boolean;
 }
 
-function Task({ task, onToggle, onDelete }: TaskProps) {
+function Task({
+  task,
+  onToggle,
+  onDelete,
+  deletePhase,
+  isFirst,
+  isLast,
+}: TaskProps) {
   return (
-    <div className="flex items-center justify-between p-3 border border-gray-700 rounded-md">
-      <label className="flex items-center gap-3 w-full cursor-pointer">
-        <input
-          type="checkbox"
-          checked={task.completed}
-          onChange={() => onToggle?.(task.id)}
-        />
-        <span className={task.completed ? "line-through text-gray-500" : ""}>
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => {
+        if (!deletePhase) {
+          onToggle?.(task.id);
+        }
+      }}
+      className={`flex items-center justify-between p-2 border-x border-b cursor-pointer duration-500 transition-[background-color,border-color,box-shadow,opacity,transform] ${
+        isFirst ? "border-t rounded-t-md" : "border-t-0"
+      } ${isLast ? "rounded-b-md" : "rounded-none"} ${
+        deletePhase === "flash"
+          ? "border-red-500 bg-red-500/35 shadow-[0_0_24px_rgba(239,68,68,0.55)]"
+          : deletePhase === "fade"
+            ? "border-red-500 bg-red-500/30 shadow-[0_0_24px_rgba(239,68,68,0.45)] opacity-0 scale-95"
+            : task.completed
+              ? "border-green-500 bg-green-500/20 shadow-[0_0_18px_rgba(34,197,94,0.35)]"
+              : "border-gray-700 bg-transparent shadow-[0_0_18px_rgba(34,197,94,0)]"
+      }`}
+    >
+      <div className="w-full text-left">
+        <span
+          className={`transition-colors duration-300 ${
+            deletePhase
+              ? "text-red-100"
+              : task.completed
+                ? "text-green-200"
+                : ""
+          }`}
+        >
           {task.text}
         </span>
-      </label>
+      </div>
 
       {onDelete && (
         <button
           type="button"
-          onClick={() => onDelete(task.id)}
-          className="ml-3 px-2 py-1 rounded-md cursor-pointer hover:bg-gray-600 transition-colors duration-400"
+          aria-label="Delete task"
+          onClick={(e) => {
+            e.stopPropagation();
+            onDelete(task.id);
+          }}
+          disabled={!!deletePhase}
+          className="ml-3 p-2 rounded-md cursor-pointer hover:bg-gray-600 transition-colors duration-400"
         >
-          Delete
+          <img src="/trashcan.svg" alt="" className="h-4 w-4" />
         </button>
       )}
     </div>

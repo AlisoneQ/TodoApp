@@ -1,7 +1,7 @@
 import "./styles/App.css";
 import { useState } from "react";
-import AddTask from "./components/AddTask";
-import Task from "./components/Task";
+import AddTaskPopup from "./components/AddTaskPopup";
+import TaskList from "./components/TaskList";
 import { type Task as TaskType } from "./types/Task";
 
 function App() {
@@ -9,6 +9,10 @@ function App() {
 
   const handleAddTask = (task: TaskType) => {
     setTasks((prev) => [...prev, task]);
+  };
+
+  const handleDeleteTask = (id: number) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
   const handleToggleTask = (id: number) => {
@@ -19,28 +23,27 @@ function App() {
     );
   };
 
-  const handleDeleteTask = (id: number) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
-  };
-
   return (
-    <div
-      className="max-w-xl justify-self-center p-4 m-5 space-y-4 shadow-xl rounded-md"
-      style={{ backgroundColor: "#181818" }}
-    >
-      <h1 className="text-3xl text-center">Todo App</h1>
-      <AddTask onAddTask={handleAddTask} />
-      <div className="space-y-2">
-        {tasks.map((task) => (
-          <Task
-            key={task.id}
-            task={task}
-            onToggle={handleToggleTask}
-            onDelete={handleDeleteTask}
-          />
-        ))}
+    <>
+      <div className="flex justify-end">
+        <AddTaskPopup onAddTask={handleAddTask} />
       </div>
-    </div>
+      <div className="flex items-center gap-0.5">
+        <img
+          src="/notepad.svg"
+          alt="Notepad"
+          className="h-8 w-8 inline-block ml-3"
+        />
+        <h1 className="m-3 text-3xl">Todo App</h1>
+      </div>
+      <div className="">
+        <TaskList
+          tasks={tasks}
+          onToggleTask={handleToggleTask}
+          onDeleteTask={handleDeleteTask}
+        />
+      </div>
+    </>
   );
 }
 

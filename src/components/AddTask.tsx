@@ -29,7 +29,7 @@ function AddTask({ onAddTask }: AddTaskProps) {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Add a new task..."
-        className="w-full pl-3"
+        className="w-full focus:outline-none"
       />
       <button
         type="submit"
