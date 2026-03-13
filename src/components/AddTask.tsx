@@ -25,6 +25,7 @@ function AddTask({ onAddTask }: AddTaskProps) {
   return (
     <form onSubmit={handleSubmit} className="flex">
       <input
+        autoFocus
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}

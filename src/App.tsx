@@ -31,21 +31,9 @@ function App() {
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      <div className="flex justify-end shrink-0">
-        <DeleteCompleted
-          onDeleteCompleted={() =>
-            taskListRef.current?.triggerDeleteCompleted()
-          }
-        />
+      <div className="flex items-center justify-between gap-1 shrink-0 shadow-lg py-3 px-3">
+        <h1 className=" text-4xl font-bold text-shadow-md">Todo App</h1>
         <AddTaskPopup onAddTask={handleAddTask} />
-      </div>
-      <div className="flex items-center gap-1 shrink-0">
-        <img
-          src="/notepad.svg"
-          alt="Notepad"
-          className="h-8 w-8 inline-block ml-3"
-        />
-        <h1 className=" text-4xl font-bold">Todo App</h1>
       </div>
       <div className="flex-1 min-h-0">
         <TaskList
@@ -56,6 +44,9 @@ function App() {
           onDeleteCompleted={handleDeleteCompleted}
         />
       </div>
+      <DeleteCompleted
+        onDeleteCompleted={() => taskListRef.current?.triggerDeleteCompleted()}
+      />
     </div>
   );
 }

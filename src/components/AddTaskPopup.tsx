@@ -24,20 +24,22 @@ function AddTaskPopup({ onAddTask }: AddTaskPopupProps) {
       />
 
       <button
-        className="relative z-30 rounded-md px-3 py-1 cursor-pointer text-3xl"
+        className="z-30 rounded-md px-3 py-1 cursor-pointer text-1xl"
         onClick={() => setIsAddTaskOpen((prev) => !prev)}
       >
-        +
+        Add Task
       </button>
 
       <div
-        className={`absolute top-16 right-4 z-20 w-80 origin-top-right rounded-md border bg-neutral-900 p-3 shadow-lg transition-all duration-300 ${
+        className={`fixed inset-0 z-20 flex items-center justify-center transition-all duration-300 ${
           isAddTaskOpen
             ? "translate-y-0 scale-100 opacity-100"
             : "pointer-events-none -translate-y-2 scale-95 opacity-0"
         }`}
       >
-        <AddTask onAddTask={handleAddTaskAndClose} />
+        <div className="w-80 origin-top-right rounded-md border bg-neutral-900 p-3 shadow-lg">
+          <AddTask onAddTask={handleAddTaskAndClose} />
+        </div>
       </div>
     </>
   );
